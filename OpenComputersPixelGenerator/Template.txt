@@ -1,0 +1,75 @@
+local robot = require("robot")
+local component = require("component")
+local comRobot = component.inventory_controller
+
+local col = 1
+local row = 16
+
+function getColorFromTable(x,y)
+  return coltab[((x-1) * 16) + y]
+end
+
+function moveUp()
+  row = row - 1
+  robot.up()
+end
+
+function moveDown()
+  row = row + 1
+  robot.down()
+end
+
+function nextCol()
+  col = col + 1
+  robot.turnRight()
+  robot.forward()
+  robot.turnLeft()
+end
+
+function findColor(color)
+  for i = 1, robot.inventorySize() do
+    stack = comRobot.getStackInInternalSlot(i)
+    if stack then
+      if stack.damage == color then
+        return i
+      end
+    end
+  end
+  return 0
+end
+
+
+for d=1,8 do
+  for x=1,16 do
+	tc = getColorFromTable(col,row)
+	fc = findColor(tc)
+	if fc == 0 then
+      os.exit(1)	
+	end
+	
+	robot.select(fc)
+	robot.place()
+	if x ~= 16 then
+      moveUp()
+	end
+  end
+  
+  nextCol()
+  
+  for x=1,16 do
+    tc = getColorFromTable(col,row)
+    fc = findColor(tc)
+    if fc == 0 then
+      os.exit(1)	
+    end
+	
+    robot.select(fc)
+    robot.place()
+    if x ~= 16 then
+      moveDown()
+    end
+  end
+  if d ~= 8 then
+    nextCol()
+  end
+end
