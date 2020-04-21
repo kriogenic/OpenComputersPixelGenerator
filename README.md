@@ -24,3 +24,5 @@ Now go back into your robot and create a new file, inside that file press your m
 
 ## Thats it!
 that is all there is too it, now fill it with the required wool start the script and watch it build!
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=7ox0uhtzwl0" target="_blank"><img src="http://img.youtube.com/vi/7ox0uhtzwl0/0.jpg" alt="Example Video" width="480" height="360" border="10" /></a>
